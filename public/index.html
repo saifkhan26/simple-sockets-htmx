@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Chat</title>
+  <script src="https://unpkg.com/htmx.org@1.9.6"></script>
+  <script src="https://unpkg.com/htmx.org/dist/ext/ws.js"></script>
+</head>
+
+<body>
+  <div hx-ext="ws" ws-connect="/">
+      <form id="form" ws-send>
+        <input name="message">
+      </form>
+    <div id="messages"></div>
+  </div>
+</body>
+
+</html>
