@@ -18,14 +18,18 @@ const publicPath = path.join(parentDir, 'public');
 console.log(parentDir, publicPath)
 app.use(express.static(publicPath));
 
-app.get('/', (req, res) => {
+app.get('/', (_, res) => {
   res.sendFile(path.join(publicPath, 'index.html'));
 });
 
 wss.on('connection', (ws) => {
+  console.log("ws inside connection ",ws)
+  const connectionHtml = `<div hx-swap-oob='beforeend:#messages'><p>new user has joined </p></div>`
+  ws.send(connectionHtml)
   ws.on('message', (message) => {
   console.log('Connections established', message)
     wss.clients.forEach((client) => {
+  console.log('foreach client', client)
       if (client !== ws && client.readyState === WebSocket.OPEN) {
         const buffedMessage = message.toString('utf8')
         const json = JSON.parse(buffedMessage)
